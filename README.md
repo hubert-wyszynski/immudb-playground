@@ -6,7 +6,7 @@ A simple REST API service that manages account records using ImmuDB Vault.
 
 The server runs on port 8080 by default.
 ```bash
-go run main.go
+docker compose up
 ```
 
 ## Prerequisites
