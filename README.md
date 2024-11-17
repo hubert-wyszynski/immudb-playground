@@ -9,6 +9,9 @@ The server runs on port 8080 by default.
 docker compose up
 ```
 
+## Note:
+- If you want to try it with [ImmuDB Playground Frontend](https://github.com/hubert-wyszynski/immudb-playground-fe), the backend server must be run first as it setup Immudb Vault initially. I didn't have time to handle the Vault setup on the frontend.
+
 ## Prerequisites
 
 Before running the application, make sure you have:
