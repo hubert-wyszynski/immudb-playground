@@ -10,6 +10,21 @@ import (
 	"github.com/hubert-wyszynski/immudb-playground/vault"
 )
 
+func enableCORS(next http.HandlerFunc) http.HandlerFunc {
+    return func(w http.ResponseWriter, r *http.Request) {
+        w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+        w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+
+        if r.Method == "OPTIONS" {
+            w.WriteHeader(http.StatusOK)
+            return
+        }
+
+        next(w, r)
+    }
+}
+
 func main() {
 	apiKey := os.Getenv("VAULT_API_KEY")
 	if apiKey == "" {
@@ -22,11 +37,11 @@ func main() {
 
 	accountHandler := handlers.NewAccountHandler(apiKey)
 
-	http.HandleFunc("/account", accountHandler.AddAccount)
-	http.HandleFunc("/accounts", accountHandler.GetAccounts)
+	http.HandleFunc("/account", enableCORS(accountHandler.AddAccount))
+    http.HandleFunc("/accounts", enableCORS(accountHandler.GetAccounts))
 
-	fmt.Println("Server starting on port 8080...")
-	if err := http.ListenAndServe(":8080", nil); err != nil {
+    fmt.Println("Server starting on port 8080...")
+    if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Fatal(err)
 	}
 }

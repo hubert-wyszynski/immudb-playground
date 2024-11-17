@@ -12,7 +12,7 @@ go run main.go
 ## Prerequisites
 
 Before running the application, make sure you have:
-- Set the `VAULT_API_KEY` environment variable with your ImmuDB Vault API key
+- Create `.env` file and set `VAULT_API_KEY` environment variable with your ImmuDB Vault API key (sample provided in `.env-example`)
 
 ## API Endpoints
 
